@@ -1,6 +1,6 @@
 package self_project.member.repository;
 
-import demo.member.entity.Member;
+import self_project.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

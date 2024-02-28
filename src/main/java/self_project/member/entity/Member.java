@@ -1,7 +1,7 @@
 package self_project.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import demo.audit.Auditable;
+import self_project.audit.Auditable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

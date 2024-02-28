@@ -1,9 +1,9 @@
 package self_project.member.service;
 
-import demo.exception.BusinessLogicException;
-import demo.exception.ExceptionCode;
-import demo.member.entity.Member;
-import demo.member.repository.MemberRepository;
+import self_project.exception.BusinessLogicException;
+import self_project.exception.ExceptionCode;
+import self_project.member.entity.Member;
+import self_project.member.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,7 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // 유저 생성
     public Member createMember(Member member) {
         member.setCreatedAt(LocalDateTime.now());
         member.setModifiedAt(LocalDateTime.now());
@@ -34,10 +35,36 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    // 단일 유저 찾기
     public Member findMember(long memberId) {return findVerifiedMember(memberId);}
 
+    // 유저 전체 찾기
     public List<Member> findAllMembers() {
         return memberRepository.findAll();
+    }
+
+    // 유저 수정
+    public Member updateMember(Member member) {
+        Member findMember = findVerifiedMember(member.getId());
+
+        Optional.ofNullable(member.getName())
+                .ifPresent(name -> findMember.setName(name));
+        Optional.ofNullable(member.getMemberState())
+                .ifPresent(memberState -> findMember.setMemberState(memberState));
+
+        findMember.setModifiedAt(LocalDateTime.now());
+
+        return memberRepository.save(member);
+    }
+
+    // 유저 삭제
+    public Member deleteMember(long memberId) {
+        Member findMember = findVerifiedMember(memberId);
+
+        findMember.setMemberState(Member.MemberState.DELETED);
+        findMember.setModifiedAt(LocalDateTime.now());
+
+        return memberRepository.save(findMember);
     }
 
     public Member findVerifiedMember(long memberId) {
