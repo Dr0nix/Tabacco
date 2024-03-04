@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 import self_project.member.entity.Member;
 
 public class MemberDto {
@@ -38,6 +39,12 @@ public class MemberDto {
         private String name;
 
         private Member.MemberState memberState;
+
+        public Patch addMemberId(Long memberId) {
+            Assert.notNull(memberId, "Member Id must not be null.");
+            this.memberId = memberId;
+            return this;
+        }
     }
 
     @AllArgsConstructor
