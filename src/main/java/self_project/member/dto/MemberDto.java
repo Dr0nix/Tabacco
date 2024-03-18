@@ -23,10 +23,10 @@ public class MemberDto {
         @NotBlank(message = "닉네임은 공백이 허용되지 않습니다.")
         private String name;
 
-        @NotBlank
-        @Pattern(regexp = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$",
-                message = "영어와 숫자, 특수문자를 사용해야 하며 8~15자리로 설정해야합니다.")
-        private String password;
+//        @NotBlank
+//        //@Pattern(regexp = "^[a-zA-Z\\\\d`~!@#$%^&*()-_=+]{8,15}$",
+//                //message = "영어와 숫자, 특수문자를 사용해야 하며 8~15자리로 설정해야합니다.")
+//        private String password;
     }
 
     @Getter

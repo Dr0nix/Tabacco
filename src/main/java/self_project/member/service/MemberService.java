@@ -4,7 +4,6 @@ import self_project.exception.BusinessLogicException;
 import self_project.exception.ExceptionCode;
 import self_project.member.entity.Member;
 import self_project.member.repository.MemberRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,20 +16,17 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     // 유저 생성
     public Member createMember(Member member) {
+        member.setMemberRole(Member.MemberRole.USER);
+        member.setMemberState(Member.MemberState.ACTIVE);
         member.setCreatedAt(LocalDateTime.now());
         member.setModifiedAt(LocalDateTime.now());
-
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
 
         return memberRepository.save(member);
     }

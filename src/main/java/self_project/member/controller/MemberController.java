@@ -16,11 +16,10 @@ import self_project.member.service.MemberService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tabacco_helper/members")
+@RequestMapping("/api/members")
 @Validated
-// @CrossOrigin(origins = "")
 public class MemberController {
-    private final static String MEMBER_DEFAULT_URL = "/tabacco_helper/members";
+//    private final static String MEMBER_DEFAULT_URL = "/tabaccoHelper/members";
     private final MemberService memberService;
     private final MemberMapper mapper;
 
@@ -30,9 +29,10 @@ public class MemberController {
     }
 
     // 멤버 생성
-    @PostMapping
+    @PostMapping("/post")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = mapper.memberPostToMember(requestBody);
+        System.out.println("멤버 등록됨");
 
         Member createdMember = memberService.createMember(member);
         return new ResponseEntity<>(createdMember, HttpStatus.CREATED);

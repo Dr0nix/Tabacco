@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Entity
 @Getter
 @Setter
+@Entity
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Member extends Auditable {
 
@@ -24,8 +24,8 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String name;
 
-    @Column(length = 50)
-    private String password;
+//    @Column(length = 50)
+//    private String password;
 
     @Column
     private MemberRole memberRole;
